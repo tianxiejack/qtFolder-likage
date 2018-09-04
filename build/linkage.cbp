@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="linkage" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\OpenCV\;CMake Files\..\..\slambook\;CMake Files\..\..\slambook\3rdparty\;CMake Files\..\..\slambook\3rdparty\Sophus\;CMake Files\..\..\slambook\3rdparty\Sophus\build\;CMake Files\cmake_modules\;CMake Files\src\;CMake Files\test\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/d/works/linkage/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="edit_cache">
+         <Option working_dir="/home/d/works/linkage/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/d/works/linkage/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="crcalib">
+         <Option output="/home/d/works/linkage/lib/libcrcalib.so" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/build/src" />
+         <Option object_output="./" />
+         <Option type="3" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/src/Makefile&quot;  VERBOSE=1 crcalib" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/src/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/src/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="crcalib/fast">
+         <Option output="/home/d/works/linkage/lib/libcrcalib.so" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/build/src" />
+         <Option object_output="./" />
+         <Option type="3" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/src/Makefile&quot;  VERBOSE=1 crcalib/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/src/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/src/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_state">
+         <Option output="/home/d/works/linkage/bin/run_linkage_state" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_state" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_state/fast">
+         <Option output="/home/d/works/linkage/bin/run_linkage_state" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_state/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_state_calib">
+         <Option output="/home/d/works/linkage/bin/run_linkage_state_calib" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_state_calib" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_state_calib/fast">
+         <Option output="/home/d/works/linkage/bin/run_linkage_state_calib" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_state_calib/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_view">
+         <Option output="/home/d/works/linkage/bin/run_linkage_view" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_view" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_view/fast">
+         <Option output="/home/d/works/linkage/bin/run_linkage_view" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_view/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_calib">
+         <Option output="/home/d/works/linkage/bin/run_linkage_calib" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_calib" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_calib/fast">
+         <Option output="/home/d/works/linkage/bin/run_linkage_calib" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_calib/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_camera_rtsp">
+         <Option output="/home/d/works/linkage/bin/run_camera_rtsp" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_camera_rtsp" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_camera_rtsp/fast">
+         <Option output="/home/d/works/linkage/bin/run_camera_rtsp" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_camera_rtsp/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_camera_calib">
+         <Option output="/home/d/works/linkage/bin/run_camera_calib" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_camera_calib" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_camera_calib/fast">
+         <Option output="/home/d/works/linkage/bin/run_camera_calib" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_camera_calib/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_camera_cap">
+         <Option output="/home/d/works/linkage/bin/run_camera_cap" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_camera_cap" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_camera_cap/fast">
+         <Option output="/home/d/works/linkage/bin/run_camera_cap" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_camera_cap/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_calib_chessboard">
+         <Option output="/home/d/works/linkage/bin/run_linkage_calib_chessboard" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_calib_chessboard" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="run_linkage_calib_chessboard/fast">
+         <Option output="/home/d/works/linkage/bin/run_linkage_calib_chessboard" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/d/works/linkage/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D__linux__" />
+            <Add directory="/home/d/slambook/3rdparty/Sophus" />
+            <Add directory="/home/d/works/linkage/include" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/eigen3" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 run_linkage_calib_chessboard/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/d/works/linkage/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/d/works/linkage/src/camera_calibration.cpp">
+         <Option target="crcalib"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/src/linkage_calibration.cpp">
+         <Option target="crcalib"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/cameraCalib.cpp">
+         <Option target="run_camera_calib"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/cameraCap.cpp">
+         <Option target="run_camera_cap"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/cameraNetCap.cpp">
+         <Option target="run_camera_rtsp"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/linkageCalib.cpp">
+         <Option target="run_linkage_calib"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/linkageCalib_chessboard.cpp">
+         <Option target="run_linkage_calib_chessboard"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/linkage_state_calib.cpp">
+         <Option target="run_linkage_state_calib"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/linkage_test_state.cpp">
+         <Option target="run_linkage_state"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/linkage_view.cpp">
+         <Option target="run_linkage_view"/>
+      </Unit>
+      <Unit filename="/home/d/works/linkage/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/d/works/linkage/../../../../usr/local/share/OpenCV/OpenCVConfig-version.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/d/works/linkage/../../../../usr/local/share/OpenCV/OpenCVConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/d/works/linkage/../../../../usr/local/share/OpenCV/OpenCVModules.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/d/works/linkage/../../../../usr/local/share/OpenCV/OpenCVModules-release.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/d/works/linkage/../../slambook/3rdparty/Sophus/build/SophusConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\slambook\3rdparty\Sophus\build\" />
+      </Unit>
+      <Unit filename="/home/d/works/linkage/cmake_modules/FindG2O.cmake">
+          <Option virtualFolder="CMake Files\cmake_modules\" />
+      </Unit>
+      <Unit filename="/home/d/works/linkage/src/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\" />
+      </Unit>
+      <Unit filename="/home/d/works/linkage/test/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\test\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
