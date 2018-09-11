@@ -75,6 +75,7 @@ typedef struct uSelect
     Rect  rt;
     bool stat;
     bool valid;
+    bool notify;
     uSelect() {
         pt = Point(-1, -1);
         rt = Rect();
@@ -87,32 +88,41 @@ typedef struct uSelect
 
 void on_mouse(int event, int x, int y, int flags, void *ustc)
 {
-    static uSelect usel;
+    //static uSelect usel;
     //char temp[16];
+
+    uSelect* usel = (uSelect*)ustc;
+
+    if(usel == NULL)
+        return ;
+
     if (event == CV_EVENT_LBUTTONDOWN)
     {
-        usel.pt = Point(x, y);
-        usel.rt.x = x;
-        usel.rt.y = y;
-        usel.stat = false;
-        usel.valid = true;
+        usel->pt = Point(x, y);
+        usel->rt.x = x;
+        usel->rt.y = y;
+        usel->stat = false;
+        usel->valid = true;
+        usel->notify = true;
     }
     else if (event == CV_EVENT_MOUSEMOVE && !(flags & CV_EVENT_FLAG_LBUTTON))
     {
     }
     else if (event == CV_EVENT_MOUSEMOVE && (flags & CV_EVENT_FLAG_LBUTTON))
     {
-        usel.pt = Point(x, y);
-        usel.rt.width = x - usel.rt.x;
-        usel.rt.height = y - usel.rt.y;
+        //usel.pt = Point(x, y);
+        //usel.rt.width = x - usel.rt.x;
+        //usel.rt.height = y - usel.rt.y;
+        //usel.notify = true;
     }
     else if (event == CV_EVENT_LBUTTONUP)
     {
-        usel.stat = true;
+        usel->stat = true;
     }
 
-    if(ustc != NULL)
-        memcpy(ustc, &usel, sizeof(uSelect));
+    //if(ustc != NULL)
+    //   memcpy(ustc, &usel, sizeof(uSelect));
+
 }
 
 LONG hc_init()
@@ -303,6 +313,7 @@ int main(int argc, char** argv)
     LONG hcDev = -1;
     DWORD mvSpeed = 2;
     HCMVMD mvMd = HCMVMD_STOP, mvMdBak = HCMVMD_STOP;
+    NET_DVR_PTZPOS pos;
 
     cv::CommandLineParser parser(argc, argv,
                                  "{s|0.5|}{help||}{@file|rtsp://admin:admin$2018@192.168.0.64:554|}");
@@ -324,6 +335,9 @@ int main(int argc, char** argv)
     unsigned long nframe = 0;
     uSelect sel;
     string strWinName;
+
+    namedWindow("ball", 1 );
+
     for(;;)
     {
         Mat frame;
@@ -332,7 +346,39 @@ int main(int argc, char** argv)
 
         if(nframe == 0)
             setMouseCallback("ball", on_mouse, &sel);
+
         nframe ++;
+
+        if(sel.valid){
+            Point pos = sel.pt;
+
+            if(sel.notify){
+                sel.notify = false;
+                cout<<"x,y=("<<pos.x<<","<<pos.y<<")"<<endl;
+
+                NET_DVR_PTZPOS getPos;
+                NET_DVR_PTZPOS pos2;
+
+                DWORD lentmp;
+                NET_DVR_GetDVRConfig(hcDev, NET_DVR_GET_PTZPOS,1, &getPos, sizeof(getPos), &lentmp);
+                static int add = 0;
+                pos2.wAction = 1;
+                int temp1 = add;
+                pos2.wPanPos = (temp1<0) ? (13720+temp1) : temp1;
+                int temp2 = 0;
+                add += 10;
+                pos2.wTiltPos = (temp2<0) ? (13720+temp2) : temp2;
+                pos2.wZoomPos = 0;//zoomPosBase;
+                NET_DVR_SetDVRConfig(hcDev, NET_DVR_SET_PTZPOS,1, &pos2, sizeof(pos2));
+                cout << "t1 " << temp1 << " t2 " << temp2 << endl;
+                cout << "wPanPos " << pos2.wPanPos << " wTiltPos " << pos2.wTiltPos << " wZoomPos " << pos2.wZoomPos << endl;
+
+            }
+        }
+
+        drawMarker(frame,
+                   Point(frame.cols/2, frame.rows/2),
+                   Scalar(255, 255, 255, 0), MARKER_CROSS, 30);
 
         imshow("ball", frame);
         char key = (char)waitKey(1);

@@ -312,7 +312,7 @@ int main(int argc, char** argv)
         return print_help();
     float scale = parser.get<float>("s");
     string strURL = parser.get<string>("@input");
-    //string strURL = "rtsp://admin:admin$2018@192.168.0.64:554";
+
     string gunCalibFile, ballCalibFile, linkageCalibFile;
     gunCalibFile = parser.get<string>("@gun");
     ballCalibFile = parser.get<string>("@ball");
@@ -364,9 +364,8 @@ int main(int argc, char** argv)
         resize(frame, ballVideoDraw, Size(frame.cols*scale, frame.rows*scale));
 
         if(nframe == 0){
-            setMouseCallback("gun image", on_mouse, &sel_gun);//sel_gun
+            setMouseCallback("ball video", on_mouse, &sel_gun);//sel_gun
             setMouseCallback("ball image", on_mouse, &sel_ball);//sel_ball
-            printf("aaaaaaaaaaaaaaaaaaaaa\n\n");
         }
 
         resize(imageGun, gunImageDraw, Size(imageGun.cols, imageGun.rows));

@@ -21,3 +21,6 @@ target_link_libraries( run_linkage_state_calib crcalib ${HC_LIBS})
 
 add_executable( run_linkage_state linkage_test_state.cpp )
 target_link_libraries( run_linkage_state crcalib ${HC_LIBS})
+
+add_executable( run_linkage_ball linkage_test_ball.cpp )
+target_link_libraries( run_linkage_ball crcalib ${HC_LIBS})
