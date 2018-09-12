@@ -2,7 +2,7 @@ add_executable( run_camera_cap cameraCap.cpp )
 target_link_libraries( run_camera_cap crcalib)
 
 add_executable( run_camera_rtsp cameraNetCap.cpp )
-target_link_libraries( run_camera_rtsp crcalib ${HC_LIBS})
+target_link_libraries( run_camera_rtsp crcalib ${HC_LIBS} -lpthread)
 
 add_executable( run_camera_calib cameraCalib.cpp )
 target_link_libraries( run_camera_calib crcalib )

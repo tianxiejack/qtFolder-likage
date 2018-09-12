@@ -49,7 +49,7 @@ set( HC_LIBS
 
 ############### dependencies ######################
 
-add_definitions( -D__linux__ )
+add_definitions( -D__linux__)
 
 include_directories( ${PROJECT_SOURCE_DIR}/include )
 add_subdirectory( src )

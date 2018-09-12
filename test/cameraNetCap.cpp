@@ -35,6 +35,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <unistd.h>
+#include <pthread.h>
+
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+
 
 #include "HCNetSDK.h"
 
@@ -85,6 +93,19 @@ typedef struct uSelect
     };
 
 }uSelect;
+
+
+#define 	MAXSENDSIZE (136)
+typedef struct {
+       int byteSizeSend;
+       unsigned char sendBuff[MAXSENDSIZE];
+}sendInfo;
+
+int m_port = -1;
+int sockfd = -1;
+vector<unsigned char>  rcvBufQue;
+sendInfo repSendBuffer;
+
 
 void on_mouse(int event, int x, int y, int flags, void *ustc)
 {
@@ -308,8 +329,226 @@ bool hc_move(LONG lUserId, HCMVMD md, DWORD speed)
     return ret;
 }
 #endif
+
+#define RECV_BUF_SIZE   1024
+#define RECVSIZE        32
+
+u_int8_t sendCheck_sum(uint len, u_int8_t *tmpbuf)
+{
+    u_int8_t  ckeSum=0;
+    for(int n=0;n<len;n++)
+        ckeSum ^= tmpbuf[n];
+    return ckeSum;
+}
+
+int  NETRecv(void *rcv_buf,int data_len)
+{
+        int fs_sel,len;
+        fd_set fd_netRead;
+        struct timeval timeout;
+        FD_ZERO(&fd_netRead);
+        FD_SET(sockfd,&fd_netRead);
+        timeout.tv_sec = 3;
+        timeout.tv_usec = 0;
+        fs_sel = select(sockfd+1,&fd_netRead,NULL,NULL,&timeout);
+        if(fs_sel){
+            len = read(sockfd,rcv_buf,data_len);
+            return len;
+        }
+        else if(-1 == fs_sel){
+            printf("ERR: Socket  select  Error!!\r\n");
+            return -1;
+        }
+        else if(0 == fs_sel){
+            //printf("Warning: Uart Recv  time  out!!\r\n");
+            return 0;
+        }
+}
+
+
+u_int8_t  check_sum(uint len_t)
+{
+    u_int8_t cksum = 0;
+    for(int n=1;n<len_t-1;n++)
+    {
+        cksum ^= rcvBufQue.at(n);
+    }
+    return  cksum;
+}
+
+
+int  prcRcvFrameBufQue(int method)
+{
+    int ret =  -1;
+    int cmdLength= (rcvBufQue.at(2)|rcvBufQue.at(3)<<8)+5;
+
+    if(cmdLength<6){
+        printf("Worning::  Invaild frame\r\n");
+        rcvBufQue.erase(rcvBufQue.begin(),rcvBufQue.begin()+cmdLength);  //  analysis complete erase bytes
+        return ret;
+    }
+    u_int8_t checkSum = check_sum(cmdLength);
+
+    if(checkSum==rcvBufQue.at(cmdLength-1))
+    {
+        switch(rcvBufQue.at(4)){
+            case 0x50:
+
+                break;
+            default:
+                printf("INFO: Unknow  Control Command, please check!!!\r\n ");
+                ret =0;
+                break;
+             }
+      }
+      else
+        printf("%s,%d, checksum error:,cal is %02x,recv is %02x\n",__FILE__,__LINE__,checkSum,rcvBufQue.at(cmdLength-1));
+        rcvBufQue.erase(rcvBufQue.begin(),rcvBufQue.begin()+cmdLength);  //  analysis complete erase bytes
+        return 1;
+}
+
+
+void* RecvDataThread(void *arg)
+{
+    int sizeRcv;
+    uint8_t dest[1024]={0};
+    int read_status = 0;
+    int dest_cnt = 0;
+    unsigned char  tmpRcvBuff[RECV_BUF_SIZE];
+    memset(tmpRcvBuff,0,sizeof(tmpRcvBuff));
+
+    unsigned int uartdata_pos = 0;
+    unsigned char frame_head[]={0xEB, 0x53};
+    static struct data_buf
+    {
+        unsigned int len;
+        unsigned int pos;
+        unsigned char reading;
+        unsigned char buf[RECV_BUF_SIZE];
+    }swap_data = {0, 0, 0,{0}};
+    memset(&swap_data,0,sizeof(swap_data));
+
+    while(1){
+        sizeRcv = NETRecv(tmpRcvBuff,RECVSIZE);
+        uartdata_pos = 0;
+        if(sizeRcv>0)
+        {
+            printf("%s,%d,recv from socket %d bytes:\n",__FILE__,__LINE__,sizeRcv);
+            for(int j=0;j<sizeRcv;j++){
+                printf("%02x ",tmpRcvBuff[j]);
+            }
+            printf("\n");
+            while (uartdata_pos < sizeRcv){
+                if((0 == swap_data.reading) || (2 == swap_data.reading)){
+                    if(frame_head[swap_data.len] == tmpRcvBuff[uartdata_pos]){
+                        swap_data.buf[swap_data.pos++] =  tmpRcvBuff[uartdata_pos++];
+                        swap_data.len++;
+                        swap_data.reading = 2;
+                        if(swap_data.len == sizeof(frame_head)/sizeof(char))
+                        swap_data.reading = 1;
+                    }else{
+                        uartdata_pos++;
+                        if(2 == swap_data.reading)
+                            memset(&swap_data, 0, sizeof(struct data_buf));
+                    }
+                }else if(1 == swap_data.reading){
+                    swap_data.buf[swap_data.pos++] = tmpRcvBuff[uartdata_pos++];
+                    swap_data.len++;
+                    if(swap_data.len>=4){
+                        if(swap_data.len==((swap_data.buf[2]|(swap_data.buf[3]<<8))+5)){
+                            for(int i=0;i<swap_data.len;i++)
+                                rcvBufQue.push_back(swap_data.buf[i]);
+
+                            prcRcvFrameBufQue(2);
+                            memset(&swap_data, 0, sizeof(struct data_buf));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+
+int  SendDataThread(int inx,int iny)
+{
+        int retVle,n;
+        {
+            u_int8_t sumCheck;
+            repSendBuffer.sendBuff[0]=0xEB;
+            repSendBuffer.sendBuff[1]=0x53;
+            repSendBuffer.sendBuff[2]=0x05;
+            repSendBuffer.sendBuff[3]=0x00;
+            repSendBuffer.sendBuff[4]=0x50;
+            repSendBuffer.sendBuff[5]=inx&0xff;
+            repSendBuffer.sendBuff[6]=(inx>>8)&0xff;
+            repSendBuffer.sendBuff[7]=iny&0xff;
+            repSendBuffer.sendBuff[8]=(iny>>8)&0xff ;
+            sumCheck=sendCheck_sum(8,repSendBuffer.sendBuff+1);
+            repSendBuffer.sendBuff[9]=(sumCheck&0xff);
+            repSendBuffer.byteSizeSend=0x0a;
+
+            retVle = write(sockfd, &repSendBuffer.sendBuff,repSendBuffer.byteSizeSend);
+            //printf("%s,%d, write to socket %d bytes:\n", __FILE__,__LINE__,retVle);
+            #if 0
+                for(int i = 0; i < retVle; i++)
+                {
+                    printf("%02x ", repSendBuffer.sendBuff[i]);
+                }
+                printf("-----end-----\n");
+            #endif
+        }
+        return 0;
+}
+
+
+
+
+void *func(void *arg)
+{
+    int ret = -1;
+    //pthread_t sendpth = -1;
+    pthread_t recvpth = -1;
+
+    struct sockaddr_in seraddr = {0};
+    struct sockaddr_in cliaddr = {0};
+
+    // 第1步：socket
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (-1 == sockfd)
+    {
+        perror("socket");
+        return NULL;
+    }
+    printf("socketfd = %d.\n", sockfd);
+
+    // 第2步：connect链接服务器
+    seraddr.sin_family = AF_INET;		// 设置地址族为IPv4
+    seraddr.sin_port = htons(10000);	// 设置地址的端口号信息
+    seraddr.sin_addr.s_addr = inet_addr("192.168.0.210");	//　设置IP地址
+    ret = connect(sockfd, (const struct sockaddr *)&seraddr, sizeof(seraddr));
+    if (ret < 0)
+    {
+        perror("listen");
+        return NULL;
+    }
+    printf("成功建立连接\n");
+
+
+    //ret = pthread_create(&sendpth, NULL, SendDataThread, NULL);
+    //ret = pthread_create(&recvpth, NULL, RecvDataThread, NULL);
+
+
+    return NULL;
+}
+
+
 int main(int argc, char** argv)
 {
+
+    func(NULL);
+
     LONG hcDev = -1;
     DWORD mvSpeed = 2;
     HCMVMD mvMd = HCMVMD_STOP, mvMdBak = HCMVMD_STOP;
@@ -356,29 +595,43 @@ int main(int argc, char** argv)
                 sel.notify = false;
                 cout<<"x,y=("<<pos.x<<","<<pos.y<<")"<<endl;
 
-                NET_DVR_PTZPOS getPos;
-                NET_DVR_PTZPOS pos2;
+                //NET_DVR_PTZPOS getPos;
+                //DWORD lentmp;
+                //NET_DVR_GetDVRConfig(hcDev, NET_DVR_GET_PTZPOS,1, &getPos, sizeof(getPos), &lentmp);
+                //cout << "wPanPos " << getPos.wPanPos << " wTiltPos " << getPos.wTiltPos << " wZoomPos " << getPos.wZoomPos << endl;
 
-                DWORD lentmp;
-                NET_DVR_GetDVRConfig(hcDev, NET_DVR_GET_PTZPOS,1, &getPos, sizeof(getPos), &lentmp);
-                static int add = 0;
-                pos2.wAction = 1;
-                int temp1 = add;
-                pos2.wPanPos = (temp1<0) ? (13720+temp1) : temp1;
-                int temp2 = 0;
-                add += 10;
-                pos2.wTiltPos = (temp2<0) ? (13720+temp2) : temp2;
-                pos2.wZoomPos = 0;//zoomPosBase;
-                NET_DVR_SetDVRConfig(hcDev, NET_DVR_SET_PTZPOS,1, &pos2, sizeof(pos2));
-                cout << "t1 " << temp1 << " t2 " << temp2 << endl;
-                cout << "wPanPos " << pos2.wPanPos << " wTiltPos " << pos2.wTiltPos << " wZoomPos " << pos2.wZoomPos << endl;
+                SendDataThread(pos.x,pos.y);
 
+
+                //static int add = 0;
+                //int temp1 = add*10;
+                //int temp2 = 0;
+                //add += 10;
+                //SendDataThread(temp1,temp2);
+
+                /*
+                    NET_DVR_PTZPOS getPos;
+                    NET_DVR_PTZPOS pos2;
+                    DWORD lentmp;
+                    NET_DVR_GetDVRConfig(hcDev, NET_DVR_GET_PTZPOS,1, &getPos, sizeof(getPos), &lentmp);
+                    static int add = 0;
+                    pos2.wAction = 1;
+                    int temp1 = add;
+                    pos2.wPanPos = (temp1<0) ? (13720+temp1) : temp1;
+                    int temp2 = 0;
+                    add += 10;
+                    pos2.wTiltPos = (temp2<0) ? (13720+temp2) : temp2;
+                    pos2.wZoomPos = 0;//zoomPosBase;
+                    NET_DVR_SetDVRConfig(hcDev, NET_DVR_SET_PTZPOS,1, &pos2, sizeof(pos2));
+                    cout << "t1 " << temp1 << " t2 " << temp2 << endl;
+                    cout << "wPanPos " << pos2.wPanPos << " wTiltPos " << pos2.wTiltPos << " wZoomPos " << pos2.wZoomPos << endl;
+                */
             }
         }
 
         drawMarker(frame,
                    Point(frame.cols/2, frame.rows/2),
-                   Scalar(255, 255, 255, 0), MARKER_CROSS, 30);
+                   Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
 
         imshow("ball", frame);
         char key = (char)waitKey(1);
