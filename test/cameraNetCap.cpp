@@ -471,23 +471,27 @@ void* RecvDataThread(void *arg)
 }
 
 
-int  SendDataThread(int inx,int iny)
+int  SendDataThread(int inx,int iny,int cofx,int cofy)
 {
         int retVle,n;
         {
             u_int8_t sumCheck;
             repSendBuffer.sendBuff[0]=0xEB;
             repSendBuffer.sendBuff[1]=0x53;
-            repSendBuffer.sendBuff[2]=0x05;
+            repSendBuffer.sendBuff[2]=0x09;
             repSendBuffer.sendBuff[3]=0x00;
             repSendBuffer.sendBuff[4]=0x50;
             repSendBuffer.sendBuff[5]=inx&0xff;
             repSendBuffer.sendBuff[6]=(inx>>8)&0xff;
             repSendBuffer.sendBuff[7]=iny&0xff;
             repSendBuffer.sendBuff[8]=(iny>>8)&0xff ;
-            sumCheck=sendCheck_sum(8,repSendBuffer.sendBuff+1);
-            repSendBuffer.sendBuff[9]=(sumCheck&0xff);
-            repSendBuffer.byteSizeSend=0x0a;
+            repSendBuffer.sendBuff[9]=cofx&0xff;
+            repSendBuffer.sendBuff[10]=(cofx>>8)&0xff ;
+            repSendBuffer.sendBuff[11]=cofy&0xff;
+            repSendBuffer.sendBuff[12]=(cofy>>8)&0xff ;
+            sumCheck=sendCheck_sum(12,repSendBuffer.sendBuff+1);
+            repSendBuffer.sendBuff[13]=(sumCheck&0xff);
+            repSendBuffer.byteSizeSend=0x0e;
 
             retVle = write(sockfd, &repSendBuffer.sendBuff,repSendBuffer.byteSizeSend);
             //printf("%s,%d, write to socket %d bytes:\n", __FILE__,__LINE__,retVle);
@@ -600,8 +604,11 @@ int main(int argc, char** argv)
                 //NET_DVR_GetDVRConfig(hcDev, NET_DVR_GET_PTZPOS,1, &getPos, sizeof(getPos), &lentmp);
                 //cout << "wPanPos " << getPos.wPanPos << " wTiltPos " << getPos.wTiltPos << " wZoomPos " << getPos.wZoomPos << endl;
 
-                SendDataThread(pos.x,pos.y);
 
+                //pos.x = 480 + 50;
+                //pos.y = 270 + 50;
+                //SendDataThread(pos.x,pos.y,388,392);
+                SendDataThread(pos.x,pos.y,380,385);
 
                 //static int add = 0;
                 //int temp1 = add*10;
