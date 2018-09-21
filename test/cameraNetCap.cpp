@@ -581,6 +581,12 @@ int main(int argc, char** argv)
 
     namedWindow("ball", 1 );
 
+    Point center;
+    int radius = 1;
+
+    center.x = 480;
+    center.y = 270;
+
     for(;;)
     {
         Mat frame;
@@ -597,6 +603,10 @@ int main(int argc, char** argv)
 
             if(sel.notify){
                 sel.notify = false;
+
+                //int tmpx = 100;
+                //pos.x = 480 + tmpx;
+                //pos.y = 270 + 0;
                 cout<<"x,y=("<<pos.x<<","<<pos.y<<")"<<endl;
 
                 //NET_DVR_PTZPOS getPos;
@@ -605,10 +615,15 @@ int main(int argc, char** argv)
                 //cout << "wPanPos " << getPos.wPanPos << " wTiltPos " << getPos.wTiltPos << " wZoomPos " << getPos.wZoomPos << endl;
 
 
-                //pos.x = 480 + 50;
-                //pos.y = 270 + 50;
-                //SendDataThread(pos.x,pos.y,388,392);
-                SendDataThread(pos.x,pos.y,380,385);
+
+               // double cos = (double)(307.0/400.0);
+
+       //        int inx = (int)(tmpx / cos);
+       //        int iny = (int)(0 / cos);
+
+       //         printf("inx ,iny = %d ,%d \n",inx,iny);
+
+                SendDataThread(pos.x,pos.y,760,780);
 
                 //static int add = 0;
                 //int temp1 = add*10;
@@ -636,9 +651,67 @@ int main(int argc, char** argv)
             }
         }
 
+        center.x = 480;
+        center.y = 270;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
         drawMarker(frame,
                    Point(frame.cols/2, frame.rows/2),
                    Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
+
+
+#if 1
+        center.x = 480 + 100;
+        center.y = 270 + 0;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+
+        drawMarker(frame,center,Scalar(255, 0, 0, 0), MARKER_CROSS, 100);
+
+        center.x = 480 + 200;
+        center.y = 270 + 0;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
+
+        center.x = 480 + 300;
+        center.y = 270 + 0;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
+
+        center.x = 480 + 400;
+                center.y = 270 + 0;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
+
+        center.x = 480;
+        center.y = 270 + 0;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+
+
+#else
+        center.x = 480 + 100;
+        center.y = 270 + 50;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+
+        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
+
+        center.x = 480 + 200;
+        center.y = 270 + 150;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
+
+        center.x = 480 + 300;
+        center.y = 270 + 200;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
+
+        center.x = 480 + 400;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
+
+        center.x = 480;
+        center.y = 270 + 0;
+        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
+#endif
+
 
         imshow("ball", frame);
         char key = (char)waitKey(1);
