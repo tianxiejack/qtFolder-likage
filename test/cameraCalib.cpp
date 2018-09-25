@@ -298,8 +298,6 @@ static bool runAndSave(const string& outputFilename,
 
 int main( int argc, char** argv )
 {
-   printf("122333333333333333333333\n\n");
-   return 0;
     Size boardSize, imageSize;
     float squareSize, aspectRatio;
     Mat cameraMatrix, distCoeffs;

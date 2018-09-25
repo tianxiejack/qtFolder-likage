@@ -125,7 +125,8 @@ int main(int argc, char** argv)
                break;
         if( key == 'c' ){
             char filename[200];
-            sprintf(filename, "camera%02d.bmp", cameraId);
+            static int frameNum = 0;
+            sprintf(filename, "./saveImage/camera%02d.bmp", frameNum++);
             imwrite(filename, frame);
             cout << "shotcut to " << filename << endl;
         }
