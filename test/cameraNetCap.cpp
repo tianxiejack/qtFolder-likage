@@ -559,12 +559,12 @@ int main(int argc, char** argv)
     NET_DVR_PTZPOS pos;
 
     cv::CommandLineParser parser(argc, argv,
-                                 "{s|0.5|}{help||}{@file|rtsp://admin:admin$2018@192.168.0.64:554|}");
+                                 "{s|0.5|}{help||}{@file|rtsp://admin:admin$2018@192.168.0.65:554|}");
     if (parser.has("help"))
         return print_help();
     float scale = parser.get<float>("s");
     string strURL = parser.get<string>("@file");
-    //string strURL = "rtsp://admin:admin$2018@192.168.0.64:554";
+    //string strURL = "rtsp://admin:admin$2018@192.168.0.65:554";
 
     hcDev = hc_init();
 
@@ -591,7 +591,7 @@ int main(int argc, char** argv)
     {
         Mat frame;
         cap >> frame;
-        resize(frame, frame, Size(frame.cols*scale, frame.rows*scale));
+        //resize(frame, frame, Size(frame.cols*scale, frame.rows*scale));
 
         if(nframe == 0)
             setMouseCallback("ball", on_mouse, &sel);
@@ -623,7 +623,7 @@ int main(int argc, char** argv)
 
        //         printf("inx ,iny = %d ,%d \n",inx,iny);
 
-                SendDataThread(pos.x,pos.y,760,780);
+                SendDataThread(pos.x,pos.y,770,770);
 
                 //static int add = 0;
                 //int temp1 = add*10;
@@ -650,7 +650,7 @@ int main(int argc, char** argv)
                 */
             }
         }
-
+#if 0
         center.x = 480;
         center.y = 270;
         cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
@@ -659,11 +659,10 @@ int main(int argc, char** argv)
                    Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
 
 
-#if 1
+
         center.x = 480 + 100;
         center.y = 270 + 0;
         cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
-
         drawMarker(frame,center,Scalar(255, 0, 0, 0), MARKER_CROSS, 100);
 
         center.x = 480 + 200;
@@ -685,31 +684,6 @@ int main(int argc, char** argv)
         center.y = 270 + 0;
         cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
 
-
-#else
-        center.x = 480 + 100;
-        center.y = 270 + 50;
-        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
-
-        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
-
-        center.x = 480 + 200;
-        center.y = 270 + 150;
-        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
-        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
-
-        center.x = 480 + 300;
-        center.y = 270 + 200;
-        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
-        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
-
-        center.x = 480 + 400;
-        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
-        drawMarker(frame,center,Scalar(255, 255, 255, 0), MARKER_CROSS, 100);
-
-        center.x = 480;
-        center.y = 270 + 0;
-        cv::circle(frame,center,radius ,cvScalar(255,0,255,255),8,8,0);
 #endif
 
 
@@ -783,6 +757,13 @@ int main(int argc, char** argv)
                  << " ] pan[ " << pos.wPanPos
                  << " ] tilt [ " << pos.wTiltPos
                  << " ] zoom [ " << pos.wZoomPos << " ]" << endl;
+        }
+        if( key == 'c' ){
+            char filename[200];
+            static int frameNum = 0;
+            sprintf(filename, "./saveImage/camera%02d.bmp", frameNum++);
+            imwrite(filename, frame);
+            cout << "shotcut to " << filename << endl;
         }
     }
 
