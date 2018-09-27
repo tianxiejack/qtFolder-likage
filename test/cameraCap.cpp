@@ -67,7 +67,7 @@ int main(int argc, char** argv)
     string inputFilename = "";
 #if 1
     cv::CommandLineParser parser(argc, argv,
-                                 "{s|1.0|}{help||}{@input|rtsp://admin:admin$2018@192.168.0.65:554|}");
+                                 "{s|1.0|}{help||}{@input|rtsp://admin:admin$2018@192.168.0.64:554|}");
 #else
     cv::CommandLineParser parser(argc, argv,
                                "{s|1.0|}{help||}{@input|0|}");

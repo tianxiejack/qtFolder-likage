@@ -559,7 +559,7 @@ int main(int argc, char** argv)
     NET_DVR_PTZPOS pos;
 
     cv::CommandLineParser parser(argc, argv,
-                                 "{s|0.5|}{help||}{@file|rtsp://admin:admin$2018@192.168.0.65:554|}");
+                                 "{s|0.5|}{help||}{@file|rtsp://admin:admin$2018@192.168.0.64:554|}");
     if (parser.has("help"))
         return print_help();
     float scale = parser.get<float>("s");
