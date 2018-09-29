@@ -477,12 +477,13 @@ int main(int argc, char** argv)
                                  "{@gun|gun_camera_data.yml|}"
                                  "{@ball|ball_camera_data.yml|}"
                                  "{@output|out_linkage_data.yml|}"
-                                 "{@input|rtsp://admin:admin$2018@192.168.0.64:554|}");
+                                 "{@input_ball|rtsp://admin:admin$2018@192.168.0.64:554|}"
+                                 "{@input_gun|rtsp://admin:admin$2018@192.168.0.65:554|}");
     if (parser.has("help"))
         return print_help();
     float scale = parser.get<float>("s");
-    string strURL = parser.get<string>("@input");
-    //string strURL = "rtsp://admin:admin$2018@192.168.0.64:554";
+    string strURL_ball = parser.get<string>("@input_ball");
+    string strURL_gun  = parser.get<string>("@input_gun");
     string gunCalibFile, ballCalibFile, linkageCalibFile;
     gunCalibFile = parser.get<string>("@gun");
     ballCalibFile = parser.get<string>("@ball");
@@ -491,12 +492,21 @@ int main(int argc, char** argv)
 
     hcDev = hc_init();
 
-    VideoCapture cap;
-    cap.open(strURL);
-    if (!cap.isOpened())
+    VideoCapture cap_ball;
+    cap_ball.open(strURL_ball);
+    if (!cap_ball.isOpened())
     {
         return -1;
     }
+
+    VideoCapture cap_gun;
+    cap_gun.open(strURL_gun);
+    if (!cap_gun.isOpened())
+    {
+        return -1;
+    }
+
+
 
     int flags;
     Mat cameraMatrix_gun, distCoeffs_gun;
@@ -510,10 +520,13 @@ int main(int argc, char** argv)
     initUndistortRectifyMap(cameraMatrix_gun, distCoeffs_gun, Mat(),
                             newCameraMatrix,
                             imageSize, CV_16SC2, map1, map2);
-    Mat image = imread("images/2018-08-16-153720.jpg");
+
+    Mat image_ball = imread("ball.bmp");
+    //Mat image_gun = imread("gun.bmp");
+
     Mat undisImage;
     //undistort(image, undisImage, cameraMatrix_gun, distCoeffs_gun, newCameraMatrix);
-    remap(image, undisImage, map1, map2, INTER_LINEAR);
+    //remap(image, undisImage, map1, map2, INTER_LINEAR);
 
     unsigned long nframe = 0;
     uSelect sel;
@@ -523,19 +536,23 @@ int main(int argc, char** argv)
     vector<Point2f> pts;
     for(;;)
     {
-        Mat frame;
-        cap >> frame;
+        Mat frame_ball,frame_gun;
+        //cap_ball >> frame_ball;
+
+        cap_gun >> frame_gun;
+
+        remap(frame_gun, undisImage, map1, map2, INTER_LINEAR);
 
         Mat gunDraw, ballDraw;
-        resize(image, gunDraw, Size(image.cols*scale, image.rows*scale));
-        resize(frame, ballDraw, Size(frame.cols*scale, frame.rows*scale));
+        resize(frame_gun, gunDraw, Size(frame_gun.cols*scale, frame_gun.rows*scale));
+        resize(image_ball, ballDraw, Size(image_ball.cols*scale, image_ball.rows*scale));
         imshow("gun org", gunDraw);
         imshow("ball org", ballDraw);
 
         if(bCal){
             vector<KeyPoint> keypoints_1, keypoints_2;
             vector<DMatch> matches;
-            find_feature_matches ( undisImage, frame, keypoints_1, keypoints_2, matches , 60.0, true);
+            find_feature_matches ( undisImage, image_ball, keypoints_1, keypoints_2, matches , 60.0, true);
             if(matches.size() > 4){
                 Mat R,t;
                 pose_2d2d ( keypoints_1, keypoints_2, matches, newCameraMatrix, R, t, homography);
@@ -634,7 +651,7 @@ int main(int argc, char** argv)
                     cameraMatrix_ball, distCoeffs_ball, homography,
                     pos.wPanPos, pos.wTiltPos, pos.wZoomPos);
             char filename[200] = "ballLinkageCalib.bmp";
-            imwrite(filename, frame);
+            imwrite(filename, frame_ball);
         }
     }
 

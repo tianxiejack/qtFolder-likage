@@ -303,16 +303,17 @@ int main(int argc, char** argv)
     NET_DVR_PTZPOS pos;
 
     cv::CommandLineParser parser(argc, argv,
-                                 "{s|0.5|}{help||}"
+                                 "{s|1.0|}{help||}"
                                  "{@gun|gun_camera_data.yml|}"
                                  "{@ball|ball_camera_data.yml|}"
                                  "{@output|out_linkage_data.yml|}"
-                                 "{@input|rtsp://admin:admin$2018@192.168.0.64:554|}");
+                                 "{@input_gun|rtsp://admin:admin$2018@192.168.0.65:554|}"
+                                 "{@input_ball|rtsp://admin:admin$2018@192.168.0.64:554|}");
     if (parser.has("help"))
         return print_help();
     float scale = parser.get<float>("s");
-    string strURL = parser.get<string>("@input");
-    //string strURL = "rtsp://admin:admin$2018@192.168.0.64:554";
+    string strURL_gun = parser.get<string>("@input_gun");
+    string strURL_ball = parser.get<string>("@input_ball");
     string gunCalibFile, ballCalibFile, linkageCalibFile;
     gunCalibFile = parser.get<string>("@gun");
     ballCalibFile = parser.get<string>("@ball");
@@ -321,9 +322,16 @@ int main(int argc, char** argv)
 
     hcDev = hc_init();
 
-    VideoCapture cap;
-    cap.open(strURL);
-    if (!cap.isOpened())
+    VideoCapture cap_ball;
+    cap_ball.open(strURL_ball);
+    if (!cap_ball.isOpened())
+    {
+        return -1;
+    }
+
+    VideoCapture cap_gun;
+    cap_gun.open(strURL_gun);
+    if (!cap_gun.isOpened())
     {
         return -1;
     }
@@ -344,10 +352,12 @@ int main(int argc, char** argv)
     initUndistortRectifyMap(cameraMatrix_gun, distCoeffs_gun, Mat(),
                             cameraMatrix_ball,
                             imageSize, CV_16SC2, map1, map2);
-    Mat imageGun = imread("images/2018-08-16-153720.jpg");
-    Mat imageBall = imread("ballLinkageCalib.bmp");
+    Mat imageGun ;// imread("images/2018-08-16-153720.jpg");
+    Mat imageBall = imread("ball.bmp");
     Mat undisImageGun;
-    remap(imageGun, undisImageGun, map1, map2, INTER_LINEAR);
+
+
+
 
     namedWindow( "gun image", 1 );
 
@@ -358,18 +368,24 @@ int main(int argc, char** argv)
     for(;;)
     {
         Mat frame;
-        Mat gunImageDraw, ballImageDraw, ballVideoDraw;
-        cap >> frame;
+        Mat gunImageDraw, ballImageDraw, ballVideoDraw,tmpgun;
+        //cap_ball >> frame;
 
-        resize(frame, ballVideoDraw, Size(frame.cols*scale, frame.rows*scale));
+        cap_gun >> imageGun;
+
+        remap(imageGun, undisImageGun, map1, map2, INTER_LINEAR);
+
+        //imageBall = frame;
+
+        resize(imageGun, gunImageDraw, Size(imageGun.cols*scale, imageGun.rows*scale));
+        resize(imageBall, ballVideoDraw, Size(imageBall.cols*scale, imageBall.rows*scale));
 
         if(nframe == 0){
             setMouseCallback("gun image", on_mouse, &sel_gun);//sel_gun
             setMouseCallback("ball image", on_mouse, &sel_ball);//sel_ball
-            printf("aaaaaaaaaaaaaaaaaaaaa\n\n");
         }
 
-        resize(imageGun, gunImageDraw, Size(imageGun.cols, imageGun.rows));
+        //resize(tmpgun, gunImageDraw, Size(imageGun.cols, imageGun.rows));
         resize(imageBall, ballImageDraw, Size(imageBall.cols*scale, imageBall.rows*scale));
 
         drawMarker(gunImageDraw, Point(gunImageDraw.cols/2, gunImageDraw.rows/2), Scalar(255, 255, 255, 0), MARKER_CROSS, 50);
@@ -400,11 +416,12 @@ int main(int argc, char** argv)
             pt = *itp;
             Point bpt( pt.x, pt.y );
 
-            circle(gunImageDraw, opt, 3, Scalar(0, 0, 255, 0), 1, CV_AA, 0);
+            circle(undisImageGun, opt, 3, Scalar(0, 0, 255, 0), 1, CV_AA, 0);
             circle(undisImageGun, upt*scale, 3, Scalar(0, 0, 255, 0), CV_FILLED, CV_AA, 0);
             circle(ballImageDraw, bpt*scale, 3, Scalar(0, 0, 255, 0), 1, CV_AA, 0);
 
-            if(sel_gun.notify){
+            if(0)//(sel_gun.notify)
+            {
                 sel_gun.notify = false;
                 Point2f nzbpt = Point2f(bpt.x-imageBall.cols/2, bpt.y-imageBall.rows/2);
                 cout << "opt: " << opt.x << " , " << opt.y << endl;
@@ -427,7 +444,7 @@ int main(int argc, char** argv)
 
         imshow("gun image", gunImageDraw);
         imshow("ball image", ballImageDraw);
-        imshow("ball video", ballVideoDraw);
+        //imshow("ball video", ballVideoDraw);
 
         char key = (char)waitKey(10);
         mvMdBak = mvMd;
