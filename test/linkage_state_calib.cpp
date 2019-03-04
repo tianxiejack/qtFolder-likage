@@ -1,3 +1,4 @@
+
 /* This is sample from the OpenCV book. The copyright notice is below */
 
 /* *************** License:**************************
@@ -491,7 +492,7 @@ int main(int argc, char** argv)
     Size boardSize;
 
     hcDev = hc_init();
-
+/*
     VideoCapture cap_ball;
     cap_ball.open(strURL_ball);
     if (!cap_ball.isOpened())
@@ -505,7 +506,7 @@ int main(int argc, char** argv)
     {
         return -1;
     }
-
+*/
 
 
     int flags;
@@ -522,7 +523,7 @@ int main(int argc, char** argv)
                             imageSize, CV_16SC2, map1, map2);
 
     Mat image_ball = imread("ball.bmp");
-    //Mat image_gun = imread("gun.bmp");
+    Mat image_gun = imread("gun.bmp");
 
     Mat undisImage;
     //undistort(image, undisImage, cameraMatrix_gun, distCoeffs_gun, newCameraMatrix);
@@ -537,9 +538,10 @@ int main(int argc, char** argv)
     for(;;)
     {
         Mat frame_ball,frame_gun;
-        //cap_ball >> frame_ball;
-
-        cap_gun >> frame_gun;
+        //cap_ball >> image_ball;
+frame_ball = image_ball;
+frame_gun = image_gun;
+       // cap_gun >> frame_gun;
 
         remap(frame_gun, undisImage, map1, map2, INTER_LINEAR);
 
